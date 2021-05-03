@@ -13,10 +13,10 @@ class BreviarioSpider(scrapy.Spider):
         date_parse = date(2020, int(self.selected_date.split('/')[1]), int(self.selected_date.split('/')[0])).strftime("%-d de %B")
         url = response.xpath(f"//*[contains(text(), '{date_parse}')]").css('a::attr(href)').get()
         # Chama outra função utilizando o url do dia em questão
-        return Request(url=url, callback=self.parse_page)
+        return Request(url=url, callback=self.parse_meditation_of_the_day)
 
     # scrapy crawl breviario_spider -a selected_date=01/01 -o output.json
-    def parse_page(self, response):
+    def parse_meditation_of_the_day(self, response):
         return {
             'meditation_day': response.css('h2::text').get(),
             'title': response.css('h1::text').get(),
