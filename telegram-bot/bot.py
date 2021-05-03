@@ -6,6 +6,7 @@ import locale
 def get_today_meditation(bot, update):
     chat_id = update.message.chat_id
     today = date.today()
+    # Rodar comando shell com a data, buscar o JSON, extrair informações, montar string e enviar pelo bot
     bot.send_message(chat_id=chat_id, text=str(today.day) + '/' + str(today.month))
 
 
