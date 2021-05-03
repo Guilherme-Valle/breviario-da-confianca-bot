@@ -18,6 +18,8 @@ class BreviarioSpider(scrapy.Spider):
     # scrapy crawl breviario_spider -a selected_date=01/01 -o output.json
     def parse_page(self, response):
         return {
+            'meditation_day': response.css('h2::text').get(),
+            'title': response.css('h1::text').get(),
             'text': ' '.join(response.css('div.pf-content').css('p::text').getall()),
             'reference': ' '.join(response.css('div.pf-content').css('em::text').getall())
         }
