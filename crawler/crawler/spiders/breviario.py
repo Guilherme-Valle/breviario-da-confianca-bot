@@ -13,11 +13,11 @@ class BreviarioSpider(scrapy.Spider):
         date_parse = date(2020, int(self.selected_date.split('/')[1]), int(self.selected_date.split('/')[0])).strftime("%-d de %B")
         url = response.xpath(f"//*[contains(text(), '{date_parse}')]").css('a::attr(href)').get()
         # Chama outra função utilizando o url do dia em questão
-        yield Request(url=url, callback=self.parse_page)
+        return Request(url=url, callback=self.parse_page)
 
     # scrapy crawl breviario_spider -a selected_date=01/01 -o output.json
     def parse_page(self, response):
-        yield {
+        return {
             'text': ' '.join(response.css('div.pf-content').css('p::text').getall()),
             'reference': ' '.join(response.css('div.pf-content').css('em::text').getall())
         }
