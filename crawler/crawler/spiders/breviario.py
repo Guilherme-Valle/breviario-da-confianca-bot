@@ -15,7 +15,7 @@ class BreviarioSpider(scrapy.Spider):
         # Chama outra função utilizando o url do dia em questão
         yield Request(url=url, callback=self.parse_page)
 
-    # Como fazer crawl nesta página?
+    # scrapy crawl breviario_spider -a selected_date=01/01 -o output.json
     def parse_page(self, response):
         yield {
             'text': ' '.join(response.css('div.pf-content').css('p::text').getall()),
