@@ -12,7 +12,7 @@ class BreviarioSpider(scrapy.Spider):
 
     # Como fazer crawl nesta página?
     def parse_page(self, response):
-        text = response.css('div.pf-content').css('p').getall()
+        text = ' '.join(response.css('div.pf-content').css('p::text').getall())
         return text
 
 
