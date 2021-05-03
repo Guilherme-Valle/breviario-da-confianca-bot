@@ -10,9 +10,10 @@ class BreviarioSpider(scrapy.Spider):
         # Chama outra função utilizando o url do dia em questão
         yield Request(url=url, callback=self.parse_page)
 
-    # Como fazer crawl nesta página? 
+    # Como fazer crawl nesta página?
     def parse_page(self, response):
-        return
+        text = response.css('div.pf-content').css('p').getall()
+        return text
 
 
 
