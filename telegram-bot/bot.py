@@ -25,7 +25,7 @@ def get_today_meditation(update, context):
 
 def main():
     key_api = os.environ.get('PYTHON_API_BREVIARIO_KEY')
-    locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
+    locale.setlocale(locale.LC_TIME, "pt_BR")
     updater = Updater(key_api, use_context=True)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler('meditacaodehoje', get_today_meditation))
