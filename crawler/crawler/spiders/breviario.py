@@ -15,8 +15,6 @@ class BreviarioSpider(scrapy.Spider):
             .replace('maio', 'Maio').replace('junho', 'Junho').replace('julho', 'Julho').replace('agosto', 'Agosto').replace('setembro', 'Setembro')\
             .replace('outubro', 'Outubro').replace('novembro', 'Novembro').replace('dezembro', 'Dezembro')
         url = response.xpath(f"//*[contains(text(), '{date_parse}')]").css('a::attr(href)').get()
-        print(date_parse)
-        print(url)
         # Chama outra função utilizando o url do dia em questão
         return Request(url=url, callback=self.parse_meditation_of_the_day)
 
