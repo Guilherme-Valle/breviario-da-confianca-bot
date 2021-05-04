@@ -14,8 +14,8 @@ def get_today_meditation(update, context):
     script = 'cd ~/breviario-da-confianca-bot/crawler/crawler/spiders && scrapy crawl breviario_spider -a selected_date=' + str(today.day) + '/' + str(today.month) + ' -o output.json'
     os.system(script)
 
-    path = os.getcwd()+"/breviario-da-confianca-bot/crawler/crawler/spiders/output.json"
-    with open(path) as json_file:
+
+    with open("~/breviario-da-confianca-bot/crawler/crawler/spiders/output.json") as json_file:
         meditation = json.load(json_file)
 
     text_meditation = "<b>" + meditation[0]['meditation_day'] + " - " + meditation[0]['title'] + " </b> \n \n" + meditation[0]['text'] \
