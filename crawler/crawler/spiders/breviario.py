@@ -9,7 +9,7 @@ class BreviarioSpider(scrapy.Spider):
     start_urls = ['https://rumoasantidade.com.br/livro-breviario-confianca']
 
     def parse(self, response):
-        locale.setlocale(locale.LC_TIME, "pt_BR")
+        locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
         date_parse = date(2020, int(self.selected_date.split('/')[1]), int(self.selected_date.split('/')[0])).strftime("%-d de %B")
         url = response.xpath(f"//*[contains(text(), '{date_parse}')]").css('a::attr(href)').get()
         # Chama outra função utilizando o url do dia em questão
