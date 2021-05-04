@@ -12,6 +12,7 @@ class BreviarioSpider(scrapy.Spider):
         locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
         date_parse = date(2020, int(self.selected_date.split('/')[1]), int(self.selected_date.split('/')[0])).strftime("%-d de %B")
         url = response.xpath(f"//*[contains(text(), '{date_parse}')]").css('a::attr(href)').get()
+        print(url)
         # Chama outra função utilizando o url do dia em questão
         return Request(url=url, callback=self.parse_meditation_of_the_day)
 
