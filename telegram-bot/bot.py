@@ -9,6 +9,7 @@ import json
 def get_today_meditation(update, context):
     chat_id = update.message.chat_id
     today = date.today()
+    os.system('rm ../crawler/crawler/spiders/output.json')
     # Rodar comando shell com a data, buscar o JSON, extrair informações, montar string e enviar pelo bot
     script = 'cd ../crawler/crawler/spiders && scrapy crawl breviario_spider -a selected_date=' + str(today.day) + '/' + str(today.month) + ' -o output.json'
     os.system(script)
