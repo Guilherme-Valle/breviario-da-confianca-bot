@@ -15,7 +15,7 @@ def get_today_meditation(update, context):
     os.system(script)
 
 
-    with open("~/breviario-da-confianca-bot/crawler/crawler/spiders/output.json") as json_file:
+    with open("../crawler/crawler/spiders/output.json") as json_file:
         meditation = json.load(json_file)
 
     text_meditation = "<b>" + meditation[0]['meditation_day'] + " - " + meditation[0]['title'] + " </b> \n \n" + meditation[0]['text'] \
