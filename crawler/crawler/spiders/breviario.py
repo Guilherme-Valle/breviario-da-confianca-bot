@@ -21,5 +21,5 @@ class BreviarioSpider(scrapy.Spider):
             'meditation_day': response.css('h2::text').get(),
             'title': response.css('h1::text').get(),
             'text': ' '.join(response.css('div.pf-content').css('p::text').getall()),
-            'reference': ' '.join(response.css('div.pf-content').css('em::text').getall())
+            'reference': response.xpath(f"//*[contains(text(), 'Brandão, Ascânio')]").css('em::text').get()
         }
