@@ -27,7 +27,7 @@ def main():
     locale.setlocale(locale.LC_TIME, "pt_BR")
     updater = Updater('TOKEN', use_context=True)
     dispatcher = updater.dispatcher
-    dispatcher.add_handler(CommandHandler('MeditacaoDeHoje', get_today_meditation))
+    dispatcher.add_handler(CommandHandler('meditacaodehoje', get_today_meditation))
     updater.start_polling()
     updater.idle()
 
