@@ -10,7 +10,7 @@ class BreviarioSpider(scrapy.Spider):
 
     def parse(self, response):
         locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
-        date_parse = date(2020, int(self.selected_date.split('/')[1]), int(self.selected_date.split('/')[0])).strftime("%-d de %B")
+        date_parse = '4 de Maio'
         url = response.xpath(f"//*[contains(text(), '{date_parse}')]").css('a::attr(href)').get()
         print(date_parse)
         print(url)
