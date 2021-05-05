@@ -9,6 +9,7 @@ import json
 def get_today_meditation(update, context):
     chat_id = update.message.chat_id
     today = date.today()
+    print(today)
     # Deleta arquivo de output prévio
     os.system('rm ~/breviario-da-confianca-bot/crawler/crawler/spiders/output.json')
 
