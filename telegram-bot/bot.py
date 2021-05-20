@@ -14,7 +14,7 @@ def get_today_meditation(update, context):
     os.system('rm -f ~/breviario-da-confianca-bot/crawler/crawler/spiders/output.json || true')
 
     # Script para rodar o webcrawling, passando como parâmetro a data de hoje
-    script = 'cd ~/breviario-da-confianca-bot/crawler/crawler/spiders && scrapy crawl breviario_spider -a selected_date=' \
+    script = 'cd ~/breviario-da-confianca-bot/crawler/crawler/spiders && /usr/local/bin/scrapy crawl breviario_spider -a selected_date=' \
              + str(today.day) + '/' + str(today.month) + ' -o output.json'
     os.system(script)
 
