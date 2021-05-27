@@ -26,7 +26,7 @@ class BreviarioSpider(scrapy.Spider):
 
     # Extrai texto da meditação do dia e retorna
     def parse_meditation_of_the_day(self, response):
-        text_array = response.xpath('//div[@class="entry-content"]/descendant::text()').extract()
+        text_array = response.xpath('//div[@class="post-content"]/descendant::text()').extract()
         print(text_array)
         text_array[0] = ''
         text_array[1] = ''
