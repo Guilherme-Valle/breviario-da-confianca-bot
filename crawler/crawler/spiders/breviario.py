@@ -26,18 +26,26 @@ class BreviarioSpider(scrapy.Spider):
 
     # Extrai texto da meditação do dia e retorna
     def parse_meditation_of_the_day(self, response):
-        text_array = response.xpath('//div[@class="post-content entry-content"]/descendant::text()').extract()
-        array = list(filter(lambda x: x!= " ", text_array))
-        len_array = len(array);
-        array[0] = ''
-        array[len_array - 1] = ''
-        array[len_array - 2] = ''
-        array[len_array - 3] = ''
-        array[len_array - 4] = ''
-        array[len_array - 5] = ''
-        array[len_array - 6] = ''
-        array[len_array - 7] = ''
-        print(array)
+        text_array = response.xpath('//div[@class="pf-content"]/descendant::text()').extract()
+        if len(text_array) == 0:
+            text_array = response.xpath('//div[@class="post-content entry-content"]/descendant::text()').extract()
+            array = list(filter(lambda x: x != " ", text_array))
+            len_array = len(array);
+            array[0] = ''
+            array[len_array - 1] = ''
+            array[len_array - 2] = ''
+            array[len_array - 3] = ''
+            array[len_array - 4] = ''
+            array[len_array - 5] = ''
+            array[len_array - 6] = ''
+            array[len_array - 7] = ''
+        else:
+            text_array[0] = ''
+            text_array[1] = ''
+            text_array[len(text_array) - 1] = ''
+            text_array[len(text_array) - 2] = ''
+            text_array[len(text_array) - 3] = ''
+            array = text_array
         return {
             'meditation_day': response.css('h2::text').get(),
             'title': response.css('h1::text').get(),
