@@ -53,7 +53,7 @@ def print_date_invalid_error(chat_id, context):
 def get_custom_meditation(update, context):
     chat_id = update.message.chat_id
     print(update)
-    print(context)
+    print(context.args[0])
 
     if len(context.args == 0):
         print_date_invalid_error(chat_id, context)
