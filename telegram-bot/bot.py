@@ -4,6 +4,7 @@ from datetime import date, timedelta
 import locale
 import os
 import json
+from utils import *
 
 def get_meditation_from_website(selected_date):
     # Deleta arquivo de output prévio
@@ -44,6 +45,36 @@ def get_tomorrow_meditation(update, context):
     context.bot.send_message(chat_id=chat_id, text=text_meditation, parse_mode=telegram.ParseMode.HTML)
 
 
+def print_date_invalid_error(chat_id, context):
+    context.bot.send_message(chat_id=chat_id,
+                             text='Por favor, digite uma data <b>válida</b> no formato <b>DD/MM</b>.',
+                             parse_mode=telegram.ParseMode.HTML)
+
+def get_custom_meditation(update, context):
+    chat_id = update.message.chat_id
+
+    if len(context.args == 0):
+        print_date_invalid_error(chat_id, context)
+        return
+
+    selected_date = context.args[0]
+
+    if string_has_letter(selected_date) or not string_has_bar(selected_date):
+        print_date_invalid_error(chat_id, context)
+        return
+
+    selected_day, selected_month, *rest = [int(x) for x in selected_date.split('/')]
+
+    if (selected_day <= 0 or selected_day > 31 or (selected_month == 2 and selected_day > 29) or selected_month <= 0
+    or selected_month > 12):
+        print_date_invalid_error(chat_id, context)
+        return
+
+    selected_date = date(2020, selected_month, selected_day)
+    text_meditation = get_meditation_from_website(selected_date)
+
+    context.bot.send_message(chat_id=chat_id, text=text_meditation, parse_mode=telegram.ParseMode.HTML)
+
 
 def main():
     locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
@@ -55,6 +86,7 @@ def main():
     # Métodos do bot
     dispatcher.add_handler(CommandHandler('meditacaodehoje', get_today_meditation))
     dispatcher.add_handler(CommandHandler('meditacaodeamanha', get_tomorrow_meditation))
+    dispatcher.add_handler(CommandHandler('meditacao', get_custom_meditation, pass_args=True))
 
     updater.start_polling()
     updater.idle()
