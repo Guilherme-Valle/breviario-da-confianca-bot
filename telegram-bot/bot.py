@@ -1,6 +1,6 @@
 from telegram.ext import Updater, CommandHandler
 import telegram
-from datetime import date
+from datetime import date, timedelta
 import locale
 import os
 import json
@@ -29,17 +29,31 @@ def get_today_meditation(update, context):
 
     text_meditation = get_meditation_from_website(today)
 
-    # Envia a meditação
+    context.bot.send_message(chat_id=chat_id, text=text_meditation, parse_mode=telegram.ParseMode.HTML)
+
+
+
+def get_tomorrow_meditation(update, context):
+    chat_id = update.message.chat_id
+    tomorrow = date.today() + timedelta(days=1)
+
+    text_meditation = get_meditation_from_website(tomorrow)
+
     context.bot.send_message(chat_id=chat_id, text=text_meditation, parse_mode=telegram.ParseMode.HTML)
 
 
 
 def main():
-    key_api = os.environ.get('PYTHON_API_BREVIARIO_KEY')
     locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
+    key_api = os.environ.get('PYTHON_API_BREVIARIO_KEY')
+
     updater = Updater(key_api, use_context=True)
     dispatcher = updater.dispatcher
+
+    # Métodos do bot
     dispatcher.add_handler(CommandHandler('meditacaodehoje', get_today_meditation))
+    dispatcher.add_handler(CommandHandler('meditacaodeamanha', get_tomorrow_meditation))
+
     updater.start_polling()
     updater.idle()
 
