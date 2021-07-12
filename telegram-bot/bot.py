@@ -26,6 +26,7 @@ def get_meditation_from_website(selected_date):
 def get_today_meditation(update, context):
     chat_id = update.message.chat_id
     today = date.today()
+    print(today)
 
     text_meditation = get_meditation_from_website(today)
 
@@ -36,6 +37,7 @@ def get_today_meditation(update, context):
 def get_tomorrow_meditation(update, context):
     chat_id = update.message.chat_id
     tomorrow = date.today() + timedelta(days=1)
+    print(tomorrow)
 
     text_meditation = get_meditation_from_website(tomorrow)
 
